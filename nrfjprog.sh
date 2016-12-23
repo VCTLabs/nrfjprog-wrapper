@@ -4,7 +4,8 @@ read -d '' USAGE <<- EOF
 nrfprog.sh
 
 This is a loose shell port of the nrfjprog.exe program distributed by Nordic,
-which relies on JLinkExe to interface with the JLink hardware.
+which relies on JLinkExe to interface with the JLink hardware. Should run fine
+on x86/x86_64/ARM.
 
 usage:
 
@@ -28,7 +29,7 @@ STATUS_COLOR=$GREEN
 TOOLCHAIN_PREFIX=arm-none-eabi
 # assume the tools are on the system path
 TOOLCHAIN_PATH=
-JLINK_OPTIONS="-device nrf51822 -if swd -speed 1000"
+JLINK_OPTIONS="-device nrf52 -if swd -speed 400"
 
 HEX=$2
 
@@ -37,7 +38,8 @@ JLINKGDBSERVER="JLinkGDBServer $JLINK_OPTIONS"
 GDB_PORT=2331
 
 # the script commands come from Makefile.posix, distributed with
-# nrf51-pure-gcc. I've made some changes to use hexfiles instead of binfiles
+# nrf51-pure-gcc, changed to use hexfiles instead binfiles and
+# updated for NRF52/SDK12.
 
 TMPSCRIPT=/tmp/tmp_$$.jlink
 if [ "$1" = "--reset" ]; then
